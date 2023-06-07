@@ -1,0 +1,12 @@
+
+html_files=$(find . -maxdepth 1 -name "*.html")  # Find all HTML files in the current directory
+
+for file in $html_files; do
+    base_file=$(basename "$file")  # Extract the filename from the path
+    parent_file="../$base_file"    # Path to the corresponding file in the parent directory
+
+    if [ ! -e "$parent_file" ] || [ "$file" -nt "$parent_file" ]; then
+        cp "$file" ".."  # Copy the file to the parent directory
+    fi
+done
+
